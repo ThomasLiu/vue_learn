@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lesson2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">{{a}}</div>
+    <script>
+      var data = { a: 1 };
+      var vm = new Vue({
+        el: "#app",
+        data,
+        beforeCreate: function () {
+          // `this` 指向 vm 实例
+          console.log("beforeCreate a is: " + this.a);
+        },
+        created: function () {
+          // `this` 指向 vm 实例
+          console.log("created a is: " + this.a);
+        },
+        beforeMount: function () {
+          // `this` 指向 vm 实例
+          console.log("beforeMount a is: " + this.a);
+        },
+        mounted: function () {
+          // `this` 指向 vm 实例
+          console.log("mounted a is: " + this.a);
+        },
+        beforeUpdate: function () {
+          // `this` 指向 vm 实例
+          console.log("beforeUpdate a is: " + this.a);
+        },
+        updated: function () {
+          // `this` 指向 vm 实例
+          console.log("updated a is: " + this.a);
+        },
+        beforeDestroy: function () {
+          // `this` 指向 vm 实例
+          console.log("beforeDestroy a is: " + this.a);
+        },
+        destroyed: function () {
+          // `this` 指向 vm 实例
+          console.log("destroyed a is: " + this.a);
+        },
+      });
+
+      // $watch 是一个实例方法
+      vm.$watch("a", function (newValue, oldValue) {
+        // 这个回调将在 `vm.a` 改变后调用
+        console.log(`a is change ${oldValue} -> ${newValue}`);
+      });
+
+      console.log(`vm.a == data.a: ${vm.a == data.a}`);
+
+      vm.a = 2;
+      console.log(`vm.a: ${vm.a}`);
+      console.log(`data.a: ${data.a}`);
+
+      data.a = 3;
+      console.log(`vm.a: ${vm.a}`);
+      console.log(`data.a: ${data.a}`);
+
+      console.log(`vm.$data === data: ${vm.$data === data}`);
+      console.log(
+        `vm.$el === document.getElementById('app'): ${
+          vm.$el === document.getElementById("app")
+        }`
+      );
+
+      setTimeout(() => {
+        vm.$destroy();
+      }, 1000);
+    </script>
+  </body>
+</html>
